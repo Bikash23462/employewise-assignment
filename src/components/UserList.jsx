@@ -3,9 +3,9 @@ import axios from "axios";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-  const [editUser, setEditUser] = useState(null); // Store user data for editing
+  const [editUser, setEditUser] = useState(null); 
   const [page, setPage] = useState(1);
-  // Fetch user list
+  
   useEffect(() => {
     axios
       .get("https://reqres.in/api/users")
@@ -13,10 +13,10 @@ const UserList = () => {
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
 
-  // Handle delete
+  
   const handleDelete = (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
-    setUsers(users.filter((user) => user.id !== id)); // Update UI immediately
+    setUsers(users.filter((user) => user.id !== id)); 
 
     axios
       .delete(`https://reqres.in/api/users/${id}`)
@@ -24,9 +24,9 @@ const UserList = () => {
       .catch((error) => console.error("Error deleting user:", error));
   };
 
-  // Handle edit button click
+  
   const handleEditClick = (user) => {
-    setEditUser(user); // Set user to edit mode
+    setEditUser(user); 
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const UserList = () => {
     });
   }, [page]);
 
-  // Handle form submission for updating user
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -43,11 +43,11 @@ const UserList = () => {
       await axios.put(`https://reqres.in/api/users/${editUser.id}`, editUser);
       alert("User updated successfully!");
 
-      // Update UI
+      
       setUsers(
         users.map((user) => (user.id === editUser.id ? editUser : user))
       );
-      setEditUser(null); // Exit edit mode
+      setEditUser(null); 
     } catch (error) {
       console.error("Error updating user:", error);
     }
